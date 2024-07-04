@@ -1,0 +1,28 @@
+networks:
+  docker_network:
+    driver: bridge
+
+services:
+  mongoMeteo:
+    restart: always
+    container_name: mongoMeteo
+    image: 'mongo:latest'
+    ports:
+      - 27017:27017
+    networks:
+      docker_network:
+        aliases:
+          - mongo
+          - mongodb
+          - mongometeo
+    volumes:
+        - type: volume
+          source: mongodb_data_volume
+          target: /data/meteoDb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ToHTsg3eChI2oSyTEpNuWwDOT8woSljN
+      MONGO_INITDB_DATABASE: MeteoWeatherForecast
+
+volumes:
+  mongodb_data_volume:
